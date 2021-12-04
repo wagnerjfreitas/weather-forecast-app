@@ -1,43 +1,43 @@
+import moment from 'moment';
 import React from 'react';
-
 import {
-  View
+  Text
 } from 'react-native';
+import { Forecast } from '../../types/WeatherForecast';
+import {
+  Container, Description, DescriptionContent, Image, ImageContent, WeekDay
+} from './styles';
 
-import { 
-  Container,
-  ImageContent,
-  Image,
-  WeekDay,
-  DescriptionContent,
-  Cloulds,
-  Temperature,
-  SpeedWind,
 
- } from './styles';
 
-export function ForecastCard(){
+ type ForecastProps = {
+   item: Forecast
+ }
+
+export function ForecastCard({item}:ForecastProps){
+  let urlImage = {uri:`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
   return (
     <Container>
-      <ImageContent>
-        <Image>
+      
+      <DescriptionContent>
+        <Description>
+          {item.main.temp} C
+        </Description>
+        <Description>
+        {item.weather[0].description}
+        </Description>
+        <Description>
+        {item.main.humidity}% de umidade
+        </Description>
+        </DescriptionContent>
 
-        </Image>
+        <ImageContent>
+        <Image source={urlImage}/>
         <WeekDay>
-
+          {moment.unix(item.dt).format('ddd')}
         </WeekDay>
       </ImageContent>
-      <DescriptionContent>
-        <Temperature>
-        
-        </Temperature>
-        <SpeedWind>
-        
-        </SpeedWind>
-        <Cloulds>
 
-        </Cloulds>
-        </DescriptionContent>
     </Container>
   );
 }

@@ -10,6 +10,7 @@ yarn add styled-component
 yarn add @types/styled-components-react-native -D
 yarn add expo-font @expo-google-fonts/poppins
 expo install expo-app-loading
+yarn add moment
 ```
 
 ### Ambiente de desenvolvimento
@@ -37,4 +38,5 @@ não abre a tela inicial até que as fontes estejam carregadas.
 - Este componente ajusta o layout da aplicação de acordo com a densidade de pixels de cada dispositivo ajustando as proporcoes
 - yarn add react-native-responsive-fontsize
 
-
+### Adicao de pacote para formatar datetime
+- yarn add moment

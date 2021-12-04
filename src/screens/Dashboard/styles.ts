@@ -1,7 +1,5 @@
 import styled from 'styled-components/native';
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
-import theme from '../../global/styles/theme';
-
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.secondary};
@@ -49,8 +47,17 @@ export const TodayCity = styled.Text`
   font-family: ${( {theme} ) => theme.fonts.text_700};
 `;
 
-export const TodayImage = styled.Text`
+export const ImageContent = styled.View`
+  background-color: ${({ theme }) => theme.colors.description};
+  width: 60px;
+  border-radius: 5px;
+  align-items: center;
+  padding-bottom: 6px;
+`;
 
+export const TodayImage = styled.Image`
+  width: 90px;
+  height: 60px;
 `;
 
 export const TodayForecastContent = styled.View`
@@ -78,17 +85,9 @@ export const TodayDescriptionContent = styled.View`
 export const TodayDescription = styled.Text`
   font-family: ${( {theme} ) => theme.fonts.text_500};
   font-size: 10px;
-  color: ${({ theme }) => theme.colors.secondary}
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const Search = styled.View`
-  width: 100%;
-  padding: 20px;
-`;
-
-export const InputTitle = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
-  font-family: ${( { theme }) => theme.fonts.text_500};
-  font-size: 16px;
-
+export const WeekForecasts = styled.ScrollView`
+  width: 97%;
 `;

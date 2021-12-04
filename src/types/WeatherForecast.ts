@@ -11,6 +11,8 @@ export type City = {
 export type Forecast = {
   main: Main;
   weather: Weather[];
+  dt: number;
+  dt_txt: string;
 }
 
 export type Main = {

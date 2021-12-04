@@ -3,6 +3,8 @@ export default {
       primary: '#FF872C',
 
       secondary: '#5d3777',
+      secondary_90: '#6a4882',
+      secondary_dark: '#43215b',
       secondary_light: 'rgba(255, 135, 44, 0.3)',
       
       success: '#12A454',
@@ -14,7 +16,9 @@ export default {
       shape: '#e7dcef',
       title: '#363F5F',
       text: '#f6f2f7',
+      description: '#c7b1d8',
       background: '#F0F2F5',
+      background_light: '#7a5a91',
 
       shadow: 'rgba(0,0,0,0.4)',
   },
