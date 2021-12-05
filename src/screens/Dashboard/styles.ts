@@ -21,7 +21,7 @@ export const HeaderTitle = styled.Text`
   font-size: 20px;
 `;
 
-export const TodayForecastContainer = styled.View`
+export const MainForecastContainer = styled.View`
   width: 97%;
   background-color: ${({ theme }) => theme.colors.background};
   margin: 5px 0;
@@ -29,38 +29,38 @@ export const TodayForecastContainer = styled.View`
   border-radius: 5px;
 `;
 
-export const TodayForecastHeader = styled.View`
+export const MainForecastHeader = styled.View`
   flex-direction: row;
   margin: 10px;
   justify-content: space-between;
 `;
 
-export const TodayForecastHeaderTitle = styled.View`
+export const MainForecastHeaderTitle = styled.View`
 
 `;
 
-export const Today = styled.Text`
+export const WeekDay = styled.Text`
   font-family: ${( {theme} ) => theme.fonts.text_400};
 `;
 
-export const TodayCity = styled.Text`
+export const MainCity = styled.Text`
   font-family: ${( {theme} ) => theme.fonts.text_700};
 `;
 
 export const ImageContent = styled.View`
   background-color: ${({ theme }) => theme.colors.description};
-  width: 60px;
+  width: 80px;
   border-radius: 5px;
   align-items: center;
   padding-bottom: 6px;
 `;
 
-export const TodayImage = styled.Image`
-  width: 90px;
+export const MainImage = styled.Image`
+  width: 80px;
   height: 60px;
 `;
 
-export const TodayForecastContent = styled.View`
+export const MainForecastContent = styled.View`
   align-items: center;
 `;
 
@@ -78,11 +78,11 @@ export const TemperatureUnit = styled.Text`
 
 `;
 
-export const TodayDescriptionContent = styled.View`
+export const MainDescriptionContent = styled.View`
   align-items: center;
 `;
 
-export const TodayDescription = styled.Text`
+export const MainDescription = styled.Text`
   font-family: ${( {theme} ) => theme.fonts.text_500};
   font-size: 10px;
   color: ${({ theme }) => theme.colors.secondary};

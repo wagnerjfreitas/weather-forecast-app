@@ -40,3 +40,8 @@ não abre a tela inicial até que as fontes estejam carregadas.
 
 ### Adicao de pacote para formatar datetime
 - yarn add moment
+
+### Biblioteca para utilização de icones
+- @expo/vector-icons
+- Essa biblioteca ja vem instalada por padrão nos projetos criados com expo
+- Para escolher o icone acessar o site https://icons.expo.fyi/

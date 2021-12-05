@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import {
-  Text
+  Text, TouchableOpacityProps
 } from 'react-native';
 import { Forecast } from '../../types/WeatherForecast';
 import {
@@ -10,14 +10,14 @@ import {
 
 
 
- type ForecastProps = {
+ type ForecastProps = TouchableOpacityProps & {
    item: Forecast
  }
 
-export function ForecastCard({item}:ForecastProps){
+export function WeekForecastItem({item, ...rest}: ForecastProps){
   let urlImage = {uri:`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
   return (
-    <Container>
+    <Container {...rest}>
       
       <DescriptionContent>
         <Description>

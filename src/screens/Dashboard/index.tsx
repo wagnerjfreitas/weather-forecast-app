@@ -6,18 +6,18 @@ import {
   Container, 
   Header,
   HeaderTitle,
-  TodayForecastContainer,
-  TodayForecastHeader,
-  TodayForecastHeaderTitle,
-  Today,
-  TodayCity,
-  TodayImage,
-  TodayForecastContent,
+  MainForecastContainer,
+  MainForecastHeader,
+  MainForecastHeaderTitle,
+  WeekDay,
+  MainCity,
+  MainImage,
+  MainForecastContent,
   TemperatureContent,
   Temperature,
   TemperatureUnit,
-  TodayDescriptionContent,
-  TodayDescription,
+  MainDescriptionContent,
+  MainDescription,
   WeekForecasts,
   ImageContent,
 } from './styles';
@@ -25,7 +25,7 @@ import {
 import { City, Forecast } from '../../types/WeatherForecast';
 
 import {forecast} from './weatherForecastList';
-import { ForecastCard } from '../../components/ForecastCard';
+import { WeekForecastItem } from '../../components/WeekForecastItem';
 import { Search } from '../../components/Search';
 
 type ImageUri = {
@@ -37,8 +37,9 @@ export function Dashboard(){
   // const [weatherForecast, setWeatherForecast] = useState<WeatherForecast>({} as WeatherForecast);
   const [city, setCity] = useState<City>({} as City);
   const [listForecast, setListForecast] = useState<Forecast[]>([] as Forecast[]);
-  const [todayForecast, setTodayForecast] = useState<Forecast>({} as Forecast);
+  const [mainForecast, setMainForecast] = useState<Forecast>({} as Forecast);
   const [urlImage, setUrlImage] = useState<ImageUri>({} as ImageUri);
+  const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
     if (forecast){      
@@ -46,12 +47,31 @@ export function Dashboard(){
       setCity(forecast.city)
       setListForecast(forecast.list);
       
-      setUrlImage({uri:`http://openweathermap.org/img/wn/${forecast.list[0].weather[0].icon}@2x.png`})
-      setTodayForecast(forecast.list[0] as Forecast)
+      // setUrlImage({uri:`http://openweathermap.org/img/wn/${forecast.list[0].weather[0].icon}@2x.png`})
+      setMainForecast(forecast.list[0] as Forecast)
 
-      console.log(forecast.list[0]);
     }
-  },[])
+  },[]);
+
+  useEffect(() => {
+    if (mainForecast.dt){
+      setUrlImage({uri:`http://openweathermap.org/img/wn/${mainForecast.weather[0].icon}@2x.png`})
+    }
+  }, [mainForecast])
+
+  function handleOnSearch() {
+    console.log('handleOnSearch')
+  }
+
+  function handleOnChangeText(value: string) {
+    console.log('handleOnChangeText');
+    setItemSearch(value);
+  }
+
+  function handleOnSelectItem(item: Forecast){
+    console.log('item '+ item.dt_txt + ' selecionado')
+    setMainForecast(item);
+  }
 
 
   return (
@@ -59,42 +79,49 @@ export function Dashboard(){
       <Header>
         <HeaderTitle>Seja Bem Vindo</HeaderTitle>
       </Header>
-    {!todayForecast.main ? <AppLoading/> :
-      <TodayForecastContainer>
-        <TodayForecastHeader>
-          <TodayForecastHeaderTitle>
-            <Today>{moment.unix(todayForecast.dt).format('dddd')}</Today>
-            <TodayCity>{city.name}</TodayCity>
-          </TodayForecastHeaderTitle>
-          <ImageContent>
-            <TodayImage source={urlImage} />
-          </ImageContent>
-        </TodayForecastHeader>
-        <TodayForecastContent> 
-          <TemperatureContent>
-            <Temperature>
-              {todayForecast.main.temp ? todayForecast.main.temp : 0}
-            </Temperature>
-            <TemperatureUnit>
-              C
-            </TemperatureUnit>
-          </TemperatureContent>
-          <TodayDescriptionContent>
-            <TodayDescription>
-              {todayForecast.weather[0].description}
-            </TodayDescription>
-            <TodayDescription>
-              {moment.unix(todayForecast.dt).format('ddd HH:mm YY')}
-            </TodayDescription>
-          </TodayDescriptionContent>
-        </TodayForecastContent>
-        </TodayForecastContainer>
-}
-      <Search />
+      {!mainForecast.main ? <AppLoading/> :
+        <MainForecastContainer>
+          <MainForecastHeader>
+            <MainForecastHeaderTitle>
+              <WeekDay>{moment.unix(mainForecast.dt).format('dddd')}</WeekDay>
+              <MainCity>{city.name}</MainCity>
+            </MainForecastHeaderTitle>
+            <ImageContent>
+              <MainImage source={urlImage} />
+            </ImageContent>
+          </MainForecastHeader>
+          <MainForecastContent> 
+            <TemperatureContent>
+              <Temperature>
+                {mainForecast.main.temp ? mainForecast.main.temp : 0}
+              </Temperature>
+              <TemperatureUnit>
+                C
+              </TemperatureUnit>
+            </TemperatureContent>
+            <MainDescriptionContent>
+              <MainDescription>
+                {mainForecast.weather[0].description}
+              </MainDescription>
+              <MainDescription>
+                {moment.unix(mainForecast.dt).format('ddd HH:mm YY')}
+              </MainDescription>
+            </MainDescriptionContent>
+          </MainForecastContent>
+        </MainForecastContainer>
+      }
+      <Search
+        onSearch={handleOnSearch} 
+        value={itemSearch} 
+        onChangeText={handleOnChangeText}
+      />
 
       <WeekForecasts>
         {listForecast.map((item, index) => 
-          <ForecastCard key={index} item={item} /> 
+          <WeekForecastItem 
+            key={index} 
+            item={item} 
+            onPress={ () => handleOnSelectItem(item)}/> 
         )}
       </WeekForecasts>
       
