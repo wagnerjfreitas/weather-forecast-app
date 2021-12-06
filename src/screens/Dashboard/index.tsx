@@ -27,6 +27,7 @@ import { City, Forecast } from '../../types/WeatherForecast';
 import {forecast} from './weatherForecastList';
 import { WeekForecastItem } from '../../components/WeekForecastItem';
 import { Search } from '../../components/Search';
+import { api } from '../../services/api';
 
 type ImageUri = {
   uri: string;
@@ -42,12 +43,13 @@ export function Dashboard(){
   const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
+
+    loadTodayForecast();
     if (forecast){      
       
       setCity(forecast.city)
       setListForecast(forecast.list);
       
-      // setUrlImage({uri:`http://openweathermap.org/img/wn/${forecast.list[0].weather[0].icon}@2x.png`})
       setMainForecast(forecast.list[0] as Forecast)
 
     }
@@ -57,7 +59,13 @@ export function Dashboard(){
     if (mainForecast.dt){
       setUrlImage({uri:`http://openweathermap.org/img/wn/${mainForecast.weather[0].icon}@2x.png`})
     }
-  }, [mainForecast])
+  }, [mainForecast]);
+
+  async function loadTodayForecast(){
+    const response = api.get5Days('São Paulo');
+
+    console.log(response);
+  }
 
   function handleOnSearch() {
     console.log('handleOnSearch')

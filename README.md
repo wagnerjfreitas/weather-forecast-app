@@ -11,6 +11,7 @@ yarn add @types/styled-components-react-native -D
 yarn add expo-font @expo-google-fonts/poppins
 expo install expo-app-loading
 yarn add moment
+yarn add axios
 ```
 
 ### Ambiente de desenvolvimento
@@ -45,3 +46,7 @@ não abre a tela inicial até que as fontes estejam carregadas.
 - @expo/vector-icons
 - Essa biblioteca ja vem instalada por padrão nos projetos criados com expo
 - Para escolher o icone acessar o site https://icons.expo.fyi/
+
+### Axios para a comunicação com API
+- yarn add axios
+- Responsável por fazer a comunicação via protocolo http com API REST
