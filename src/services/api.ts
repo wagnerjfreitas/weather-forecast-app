@@ -1,14 +1,15 @@
 import axios from 'axios';
+import { params } from '../../config/params';
 
 const apiAxios = axios.create({
-  baseURL: 'http://192.168.0.108:3333/api/weather-forecast'
+  baseURL: params.url_api
 });
 
 export const api = {
 
   get5Days: async (city: string) => {
     try {
-      const {data} = await apiAxios.get(`/5-days/${city}`)
+      const {data} = await apiAxios.get(`/weather-forecast/5-days/${city}`)
       return data;
     } catch (error){
       console.log('Error:get5Days:', JSON.stringify(error))
@@ -18,7 +19,7 @@ export const api = {
 
   getHistory: async () => {
     try {
-      const {data} = await apiAxios.get('/5-days/history')
+      const {data} = await apiAxios.get('/weather-forecast/5-days/history')
       return data;
     } catch (error){
       console.log('Error:getHistory:', JSON.stringify(error))
