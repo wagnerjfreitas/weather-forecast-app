@@ -18,11 +18,12 @@ type SearchProps = TextInputProps & {
   }
  
  export function Search({onSearch, ...rest}: SearchProps){
+    
     return(
       <Container>
         <InputTitle>Selecione a Cidade</InputTitle>
         <InputContent>
-          <InputText placeholder="Pesquisa por cidade" {...rest}/>
+          <InputText  placeholder="Pesquisa por cidade" {...rest}/>
           <IconSearch 
             onPress={onSearch} 
             name='search-outline'/>

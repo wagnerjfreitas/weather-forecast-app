@@ -12,6 +12,8 @@ yarn add expo-font @expo-google-fonts/poppins
 expo install expo-app-loading
 yarn add moment
 yarn add axios
+yarn add expo-sqlite
+expo install expo-file-system expo-asset
 ```
 
 ### Ambiente de desenvolvimento
@@ -50,3 +52,24 @@ não abre a tela inicial até que as fontes estejam carregadas.
 ### Axios para a comunicação com API
 - yarn add axios
 - Responsável por fazer a comunicação via protocolo http com API REST
+
+### SQLite para persistencia em banco de dados
+- yarn add expo-sqlite
+- expo install expo-file-system expo-asset
+- https://docs.expo.dev/versions/latest/sdk/sqlite/
+
+### UUID para geração de chave primaria dos registros
+- `yarn add uuid`
+- `yarn add @types/uuid`
+- Para gerar chaves randomicas é necessário adicionar também a seguinte lib 
+- `yarn add react-native-get-random-values`
+
+### Componente para obter o estado de conexão com a internet
+- expo install @react-native-community/netinfo
+
+### Proximas tarefas
+- Verificar se existe registros para a cidade e se tiver deve excluir todos e inserir os novos
+- Se não tem a cidade insere os 5 registros.
+- Na lista de historico exibir todos os registros de todas as cidades
+- Ao selecionar uma cidade deve carregar todos os registros dessa cidade no dashboard
+

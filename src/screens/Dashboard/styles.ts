@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
+import { MaterialIcons } from '@expo/vector-icons';
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.secondary};
@@ -8,17 +10,30 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: ${RFPercentage(10)}px;
+  height: ${RFPercentage(12)}px;
   background-color: ${({ theme }) => theme.colors.secondary};
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 0 20px;
-  /* align-items: center;  */
+  align-items: flex-end; 
 `;
 
 export const HeaderTitle = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${( {theme} ) => theme.fonts.text_400};
   font-size: 20px;
+`;
+
+export const ButtonHistoric = styled.TouchableOpacity`
+  opacity: 0.95;
+`;
+
+export const IconHistoric = styled(MaterialIcons)`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${RFValue(28)}px;
+  width: 50px;  
+  padding: 10px;
+  /* background-color: aliceblue; */
 `;
 
 export const MainForecastContainer = styled.View`

@@ -1,33 +1,31 @@
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Text, TouchableOpacityProps
 } from 'react-native';
-import { Forecast } from '../../types/WeatherForecast';
+import { WeatherForecast } from '../../database/models';
 import {
   Container, Description, DescriptionContent, Image, ImageContent, WeekDay
 } from './styles';
 
-
-
  type ForecastProps = TouchableOpacityProps & {
-   item: Forecast
+   item: WeatherForecast
  }
 
 export function WeekForecastItem({item, ...rest}: ForecastProps){
-  let urlImage = {uri:`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+  let urlImage = {uri:`http://openweathermap.org/img/wn/${item.icon}@2x.png`}
   return (
     <Container {...rest}>
       
       <DescriptionContent>
         <Description>
-          {item.main.temp} C
+          {item.temp} C
         </Description>
         <Description>
-        {item.weather[0].description}
+        {item.description}
         </Description>
         <Description>
-        {item.main.humidity}% de umidade
+        {item.humidity}% de umidade
         </Description>
         </DescriptionContent>
 

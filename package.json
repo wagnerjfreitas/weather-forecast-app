@@ -9,18 +9,27 @@
   },
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.2.0",
+    "@react-native-community/netinfo": "6.0.2",
+    "@types/uuid": "^8.3.3",
+    "add": "^2.0.6",
     "axios": "^0.24.0",
     "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
+    "expo-asset": "~8.4.3",
+    "expo-file-system": "~13.0.3",
     "expo-font": "^10.0.3",
+    "expo-sqlite": "^10.0.3",
     "expo-status-bar": "~1.1.0",
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-get-random-values": "^1.7.1",
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-web": "0.17.1",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "uuid": "^8.3.2",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
