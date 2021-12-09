@@ -95,12 +95,13 @@ export function Dashboard(){
   }
 
   function handleOnSearch(city: string) {
-    if (!city){
+    if (!city.trim()){
+      setItemSearch(city.trim())
       return
     }
     if (!searching){
       setSearching(true);
-      loadTodayForecast(city);
+      loadTodayForecast(city.trim());
     }
   }
 
