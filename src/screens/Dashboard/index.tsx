@@ -23,43 +23,44 @@ import {
   MainDescriptionContent,
   MainDescription,
   WeekForecasts,
+  ListForecasts,
   ImageContent,
+  EmptyList,
+  EmptyListTitle,
 } from './styles';
 
-import { City, Forecast } from '../../types/WeatherForecast';
-
-import {forecast} from './weatherForecastList';
 import { WeekForecastItem } from '../../components/WeekForecastItem';
 import { Search } from '../../components/Search';
 import { api } from '../../services/api';
 import { WeatherForecast } from '../../database/models';
-import { Alert } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import DAO from '../../database/sqlite/DAO';
 import db from '../../database/sqlite/db';
 import { isNetworkAvailable } from '../../utils/network';
+import { ModalView } from '../../components/ModalView';
+import { Load } from '../../components/Load';
 
 type ImageUri = {
   uri: string;
 }
 
 export function Dashboard(){
-
-  // const [weatherForecast, setWeatherForecast] = useState<WeatherForecast>({} as WeatherForecast);
-  const [city, setCity] = useState<City>({} as City);
   const [listForecast, setListForecast] = useState<WeatherForecast[]>([] as WeatherForecast[]);
   const [mainForecast, setMainForecast] = useState<WeatherForecast>({} as WeatherForecast);
   const [urlImage, setUrlImage] = useState<ImageUri>({} as ImageUri);
   const [itemSearch, setItemSearch] = useState('');
   const [searching, setSearching] = useState(true);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [listHistory, setListHistory] = useState<WeatherForecast[]>([] as WeatherForecast[]);
 
   useEffect(() => {
-    loadTodayForecast('São Paulo');
+    loadTodayForecast('Viçosa');
   },[]);
 
   useEffect(() => {
     moment.updateLocale('pt-br', {
       weekdays: [
-        "Domingo","Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
+        "Domingo","Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
       ]
   });
     if (mainForecast.dt){
@@ -69,30 +70,14 @@ export function Dashboard(){
 
   async function loadTodayForecast(city: string){
     const isConnected = await isNetworkAvailable();
-    let response = [] as WeatherForecast[];
-
     if (!city){
       return
     }
-
     if (isConnected) {
-      response = await api.get5Days(city);
-      if (response && response.length > 0){
-        await saveWeatherForecast(response);
-      } else {
-        Alert.alert("Aviso", "Previsão não encontrada para " + city);
-        setSearching(false);
-      }
+      loadWebWeatherForecast(city)
     } else {
-      response = await DAO.WeatherForecastDAO.findByCityName(city);      
+      loadLocalWeatherForecast(city)      
     }
-    if (response && response.length > 0){
-      setMainForecast(response[0]);
-      // response.splice(0);            
-      setListForecast(response.length > 0 ? response : []);
-    }
-    setSearching(false);
-    // console.log('response', response);
   }
 
   async function saveWeatherForecast(data: WeatherForecast[]){
@@ -114,24 +99,24 @@ export function Dashboard(){
       return
     }
     if (!searching){
-      console.log('handleOnSearch')
       setSearching(true);
       loadTodayForecast(city);
     }
   }
 
   function handleOnChangeText(value: string) {
-    console.log('handleOnChangeText');
     setItemSearch(value);
   }
 
   function handleOnSelectItem(item: WeatherForecast){
-    console.log('item '+ item.dt_txt + ' selecionado')
     setMainForecast(item);
+    setItemSearch('');
   }
 
   function handleOnOpenHistory() {
-    console.log('handleOnOpenHistory')
+    setIsVisibleModal(true);    
+    getHistoryList();
+    setItemSearch('');
 
     // dropDatabase();
   }
@@ -141,9 +126,58 @@ export function Dashboard(){
     db.dropTables();
   }
 
+  async function getHistoryList(){
+    const history = await DAO.WeatherForecastDAO.findAll();
+    if(!!history && history.length > 0){
+      setListHistory(history)
+    }
+  }
+
+  function handleOnCloseModal(){
+    setIsVisibleModal(false);
+  }
+
+  function handleOnSelectHistoryItem(item: WeatherForecast){
+      setSearching(true);
+      loadLocalWeatherForecast(item.city_name); 
+      setMainForecast(item);
+      setIsVisibleModal(false);
+  }
+
+  async function loadLocalWeatherForecast(city: string){
+    const response = await DAO.WeatherForecastDAO.findByCityName(city);
+    if (response && response.length > 0){
+      setMainForecast(response.length > 0 ? response[0] : []);         
+      setListForecast(response.length > 0 ? response : []);
+    }
+    setSearching(false)
+  }
+
+  async function loadWebWeatherForecast(city: string){
+    const response = await api.get5Days(city);
+    if (response && response.length > 0){
+      await saveWeatherForecast(response);
+      setMainForecast(response.length > 0 ? response[0] : []);      
+      setListForecast(response.length > 0 ? response : []);
+    } else {
+      loadLocalWeatherForecast(city)
+      Alert.alert("Aviso", "Previsão não encontrada para " + city);
+    }
+    setSearching(false);
+  }
+
+  function renderEmptyList() {
+    return (
+      <EmptyList>
+        <EmptyListTitle > Nenhum item encontrado. </EmptyListTitle>
+      </EmptyList>
+    );
+  }
 
   return (
-    <Container>
+    searching    
+    ? <Load /> 
+    : <Container>
       <Header>
         <HeaderTitle>Seja Bem Vindo</HeaderTitle>
         <ButtonHistoric
@@ -169,7 +203,7 @@ export function Dashboard(){
                 {mainForecast.temp ? mainForecast.temp : 0}
               </Temperature>
               <TemperatureUnit>
-                C
+                °C
               </TemperatureUnit>
             </TemperatureContent>
             <MainDescriptionContent>
@@ -190,6 +224,8 @@ export function Dashboard(){
         onChangeText={handleOnChangeText}
       />
 
+      {listForecast.length > 0
+      ?
       <WeekForecasts>
         {listForecast.map((item, index) => 
           <WeekForecastItem 
@@ -198,7 +234,30 @@ export function Dashboard(){
             onPress={ () => handleOnSelectItem(item)}/> 
         )}
       </WeekForecasts>
+      : renderEmptyList()
+      }
+
+      <ModalView
+        visible={isVisibleModal} 
+        closeModal={handleOnCloseModal} 
+        title={'Selecione a cidade'}
+      >
+        {listHistory.length > 0
+        ?
+        <WeekForecasts>
+          {listHistory.map((item, index) =>          
+            <WeekForecastItem 
+              isHistory
+              key={index} 
+              item={item} 
+              onPress={ () => handleOnSelectHistoryItem(item)}/> 
+          )}
+        </WeekForecasts>
+        : renderEmptyList()
+      }
+
+      </ModalView> 
       
-    </Container>
+    </Container>     
   );
 }

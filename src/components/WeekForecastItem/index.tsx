@@ -9,25 +9,33 @@ import {
 } from './styles';
 
  type ForecastProps = TouchableOpacityProps & {
-   item: WeatherForecast
+   item: WeatherForecast;
+   isHistory?: boolean
  }
 
-export function WeekForecastItem({item, ...rest}: ForecastProps){
+export function WeekForecastItem({item, isHistory, ...rest}: ForecastProps){
   let urlImage = {uri:`http://openweathermap.org/img/wn/${item.icon}@2x.png`}
   return (
     <Container {...rest}>
-      
+      {isHistory ?
       <DescriptionContent>
-        <Description>
-          {item.temp} C
-        </Description>
-        <Description>
-        {item.description}
-        </Description>
-        <Description>
-        {item.humidity}% de umidade
-        </Description>
+        <Description>{item.city_name } </Description>             
+        <Description>{item.temp} °C</Description>      
+        <Description>{moment.unix(item.dt).format('DD/MM/YYYY')}</Description>
+      </DescriptionContent>
+      :
+        <DescriptionContent>      
+          <Description>
+            {item.temp} °C
+          </Description>
+          <Description>
+            {item.description}
+          </Description>
+          <Description>
+          {item.humidity}% de umidade
+          </Description>
         </DescriptionContent>
+      }
 
         <ImageContent>
         <Image source={urlImage}/>

@@ -28,9 +28,19 @@ class WeatherForecastDAO extends CrudDAO<WeatherForecast> {
 
   findByCityName = async (cityName :string) => {
     try {
-      const result: any = await db.execute(`SELECT * FROM ${this.tableName} where city_name=? order by dt desc;`, [
+      const result: any = await db.execute(`SELECT * FROM ${this.tableName} where city_name=? order by dt;`, [
         cityName,
       ])
+      return result.rows.length > 0 ? result.rows : []
+    } catch (error) {
+      console.log('error:', error)
+      return false
+    }
+  }
+
+  findAll = async () => {
+    try {
+      const result: any = await db.execute(`SELECT * FROM ${this.tableName} order by city_name, dt;`)
       return result.rows.length > 0 ? result.rows : []
     } catch (error) {
       console.log('error:', error)
@@ -42,7 +52,7 @@ class WeatherForecastDAO extends CrudDAO<WeatherForecast> {
   removeHistoryByCityId = async (id: number) => {
     this.validate()
     try {
-      const result = await db.execute(`DELETE FROM ${this.tableName} WHERE ${this.primaryKey}=?;`, [
+      const result = await db.execute(`DELETE FROM ${this.tableName} WHERE city_id=?;`, [
         String(id),
       ])
       if ((result as ResultSet)) {

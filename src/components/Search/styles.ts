@@ -4,7 +4,7 @@ import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   width: 100%;
-  padding: 20px 5px;
+  padding: 20px 10px;
 `;
 
 export const InputTitle = styled.Text`

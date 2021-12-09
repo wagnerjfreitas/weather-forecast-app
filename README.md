@@ -1,5 +1,14 @@
 # weather-forecast-api
 
+## Instruções para inicialização
+- Alterar o endereço IP no arquivo [./config/params.ts] informando o IP da máquina 
+na qual o servidor estará rodando.
+- Iniciar a API (weather-forecast) antes do app.
+- Iniciar o App (weather-forecast-app) com o seguinte comando:
+```bash
+yarn start
+```
+
 Para criar o projeto foi executado o seguinte comando
 ```bash
 expo init
@@ -67,9 +76,4 @@ não abre a tela inicial até que as fontes estejam carregadas.
 ### Componente para obter o estado de conexão com a internet
 - expo install @react-native-community/netinfo
 
-### Proximas tarefas
-- Verificar se existe registros para a cidade e se tiver deve excluir todos e inserir os novos
-- Se não tem a cidade insere os 5 registros.
-- Na lista de historico exibir todos os registros de todas as cidades
-- Ao selecionar uma cidade deve carregar todos os registros dessa cidade no dashboard
 

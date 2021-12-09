@@ -6,6 +6,7 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.secondary};
   align-items: center;
+  padding: 0 0 10px 0;
 `;
 
 export const Header = styled.View`
@@ -37,11 +38,8 @@ export const IconHistoric = styled(MaterialIcons)`
 `;
 
 export const MainForecastContainer = styled.View`
-  width: 97%;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.background};
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
 `;
 
 export const MainForecastHeader = styled.View`
@@ -90,7 +88,7 @@ export const Temperature = styled.Text`
 `;
 
 export const TemperatureUnit = styled.Text`
-
+  font-weight: bold;
 `;
 
 export const MainDescriptionContent = styled.View`
@@ -104,5 +102,23 @@ export const MainDescription = styled.Text`
 `;
 
 export const WeekForecasts = styled.ScrollView`
-  width: 97%;
+  width: 100%;
+  padding: 10px;
+`;
+
+export const ListForecasts = styled.ScrollView`
+  width: 100%;
+`;
+
+export const EmptyList = styled.View`
+  flex: 1; 
+  justify-content: center;
+  align-content: center;
+  align-items: center;  
+`;
+
+export const EmptyListTitle = styled.Text`
+  font-family: ${( {theme} ) => theme.fonts.text_500};
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.description};
 `;

@@ -14,7 +14,7 @@ export const Container = styled.TouchableOpacity`
 `;
 
 export const ImageContent = styled.View`
-  background-color: ${({ theme }) => theme.colors.background_light};
+  background-color: ${({ theme }) => theme.colors.secondary_80};
   width: 60px;
   border-radius: 5px;
   align-items: center;
