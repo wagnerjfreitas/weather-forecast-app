@@ -94,3 +94,4 @@ não abre a tela inicial até que as fontes estejam carregadas.
 - expo install @react-native-community/netinfo
 
 
+## Bom trabalho!!! :rocket:
