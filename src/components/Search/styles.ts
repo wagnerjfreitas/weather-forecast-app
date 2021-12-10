@@ -37,3 +37,8 @@ export const IconSearch = styled(Ionicons)`
   margin-left: -50px;
   /* background-color: aliceblue; */
 `;
+export const ErrorMessage = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.text_400};
+  font-size: ${RFValue(10)}px;
+  color: ${({theme})=> theme.colors.primary};
+`;

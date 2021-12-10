@@ -16,13 +16,13 @@ import {
   Title,
  } from './styles';
 
-type Props = ModalProps & {
+export type ModalViewProps = ModalProps & {
   children: ReactNode;
   title: string;
   closeModal: () => void;
 }
 
-export function ModalView({children, title, closeModal, ...rest}: Props){
+export function ModalView({children, title, closeModal, ...rest}: ModalViewProps){
   return (
     <Modal
     transparent

@@ -122,3 +122,6 @@ export const EmptyListTitle = styled.Text`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.description};
 `;
+
+export const Refresh = styled.RefreshControl`
+`;

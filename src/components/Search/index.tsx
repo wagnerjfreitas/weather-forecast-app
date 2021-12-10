@@ -10,14 +10,15 @@ import {
     InputText,
     IconSearch,
     InputContent,
-
+    ErrorMessage,
   } from './styles';
 
 type SearchProps = TextInputProps & {
+  errorMessage?: string;
   onSearch: () => void;
   }
  
- export function Search({onSearch, ...rest}: SearchProps){
+ export function Search({onSearch, errorMessage, ...rest}: SearchProps){
     
     return(
       <Container>
@@ -28,6 +29,10 @@ type SearchProps = TextInputProps & {
             onPress={onSearch} 
             name='search-outline'/>
         </InputContent>
+        {errorMessage ?
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+          : <></>
+        }
       </Container>
     )
  }

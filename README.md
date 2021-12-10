@@ -1,6 +1,18 @@
-# weather-forecast-api
+# weather-forecast-app
+- Este projeto foi desenvolvido para visualizar a previsão do tempo dos últimos 5 dias de uma determinada cidade inserida no campo de pesquisa.
+Também é possível visualizar o histórico de previsão das cidades já pesquisadas.
+- A primeira vez que o app inicia, é realizada a pesquisa da cidade padrão (Viçosa).
+- Se o dispositivo está sem conexão com a internet e o usuário tenta pesquisar uma cidade,
+o app busca a previsão para a cidade pesquisada no histórico de cidades já pesquisadas. Caso não encontre nenhum resultado, uma mensagem é exibida abaixo do campo de pesquisa.
+Este Aplicativo consome as informações da seguinte API: https://github.com/wagnerjfreitas/weather-forecast
+
+
 
 ## Instruções para inicialização
+- Intalar os pacotes de dependencias
+```bash
+yarn
+```
 - Alterar o endereço IP no arquivo [./config/params.ts] informando o IP da máquina 
 na qual o servidor estará rodando.
 - Iniciar a API (weather-forecast) antes do app.
@@ -9,6 +21,7 @@ na qual o servidor estará rodando.
 yarn start
 ```
 
+## Desenvolvido com Expo
 Para criar o projeto foi executado o seguinte comando
 ```bash
 expo init
@@ -26,7 +39,11 @@ expo install expo-file-system expo-asset
 ```
 
 ### Ambiente de desenvolvimento
-- instalar no vscode o componente vscode-styled-components
+- IDE utilizada: VSCode
+- Extensões que melhoram o ambiente de desenvolvimento:
+  - vscode-styled-components
+  - Color Highlight
+  - Material Icon Theme
 
 ### configurando o tema (cores e fontes)
 - adicionar um arquivo global para todas as cores do app
