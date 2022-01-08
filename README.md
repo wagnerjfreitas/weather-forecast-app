@@ -54,7 +54,7 @@ expo install expo-file-system expo-asset
 Isso faz com que o auto complete do vscode passe a mostrar a nova propriedade quando estiver
 montando meu estilo.
 
-```
+```javascript
 import 'styled-components';
 import theme from './theme';
 
