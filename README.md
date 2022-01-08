@@ -54,6 +54,17 @@ expo install expo-file-system expo-asset
 Isso faz com que o auto complete do vscode passe a mostrar a nova propriedade quando estiver
 montando meu estilo.
 
+```
+import 'styled-components';
+import theme from './theme';
+
+declare module 'styled-components' {
+  type ThemeType = typeof theme
+
+  export interface DefaultTheme extends ThemeType { }
+}
+```
+
 ### Importação e instalação de fontes do projetos
 - Buscar uma fonte de interesse no site do google fonts e instalar no projeto
 - yarn add expo-font @expo-google-fonts/poppins
